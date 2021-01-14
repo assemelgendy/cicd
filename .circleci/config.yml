@@ -7,23 +7,12 @@ orbs:
 # Orchestrate or schedule a set of jobs
 
 jobs:
-  print-hello:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - checkout
-      - run: echo "hello"
-
-  print-world:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - checkout
-      - run: echo "world"
-
   print-name:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/base:2020.01
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
       - run: 
@@ -33,7 +22,4 @@ jobs:
 workflows:
   default:
     jobs:
-      - print-hello
-      - print-world:
-          requires: [print-hello]
       - print-name
