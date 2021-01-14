@@ -26,7 +26,10 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      - run: echo "$test"
+      - run: 
+          name: "echo an env var that is part of our context"
+          command: |
+            echo $test
 workflows:
   default:
     jobs:
