@@ -7,19 +7,26 @@ orbs:
 # Orchestrate or schedule a set of jobs
 
 jobs:
-  print-name:
+  save_hello_world_output:
     docker:
-      - image: cimg/base:2020.01
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD
+      - image: circleci/node:13.8.0
     steps:
       - checkout
-      - run: 
-          name: "echo an env var that is part of our context"
-          command: |
-            echo $test
+      - run: echo "test share" > output.txt
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - output
+    
+  print_output_file:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run: cat output.txt
+      - attach_workspace:
+          at: /tmp/workspace
 workflows:
   default:
     jobs:
-      - print-name
+      - save_hello_world_output
