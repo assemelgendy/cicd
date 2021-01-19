@@ -20,7 +20,7 @@ jobs:
               --template-file template.yml \
               --stack-name my-stack
           
-#workflow 
+
 workflows:
   default:
     jobs:
