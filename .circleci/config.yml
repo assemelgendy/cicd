@@ -10,12 +10,15 @@ orbs:
 jobs:
   create_infrastructure:
     docker:
-      - image: "amazon/aws-cli"
+      - image: amazon/aws-cli
     steps:
       - checkout
       - run:
-          name: create stack
-          command: aws cloudformation deploy --template-body template.yml --stack-name cicd
+          name: Ensure backend infrastructure exist
+          command: |
+            aws cloudformation deploy \
+              --template-file template.yml \
+              --stack-name my-stack
           
           
 #workflow
