@@ -10,16 +10,19 @@ orbs:
 jobs:
   create_infrastructure:
     docker:
-      - image: amazon/aws-cli
+      - image: python:3.7-alpine3.11
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints: [62:59:63:84:5d:e2:22:f0:27:d7:2e:25:3b:a0:10:91]
       - run:
-          name: Ensure backend infrastructure exist
+          name: Install dependencies
           command: |
-            aws cloudformation deploy \
-              --template-file template.yml \
-              --stack-name my-stack
-          
+            apk add --update ansible
+      - run:
+          name: configure server
+          command: |
+            ansible-playbook -i inventory.txt playbook.yml
 
 workflows:
   default:
