@@ -21,8 +21,8 @@ jobs:
           command: |
             pip install pip --upgrade
             pip install ansible
-
-         
+            apk update
+            apk add --virtual build-dependencies   
       - run:
           name: Configure server
           command: |
