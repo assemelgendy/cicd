@@ -8,23 +8,23 @@ orbs:
 # Orchestrate or schedule a set of jobs
 
 jobs:
-  create_infrastructure:
+  configure_infrastructure:
     docker:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
       - add_ssh_keys:
-          fingerprints: [62:59:63:84:5d:e2:22:f0:27:d7:2e:25:3b:a0:10:91]
+          fingerprints: ["62:59:63:84:5d:e2:22:f0:27:d7:2e:25:3b:a0:10:91"] 
       - run:
           name: Install dependencies
           command: |
-            apk add --update ansible
+            apk add --update ansible # install the dependencies needed for your playbook
       - run:
-          name: configure server
+          name: Configure server
           command: |
             ansible-playbook -i inventory.txt playbook.yml
 
 workflows:
-  default:
+  my_workflow:
     jobs:
-      - create_infrastructure
+      - configure_infrastructure
