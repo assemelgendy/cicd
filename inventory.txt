@@ -1,2 +1,5 @@
 [all]
-34.213.87.70
+34.213.87.70 
+
+[all:vars]
+host_key_checking = False
